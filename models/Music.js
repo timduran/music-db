@@ -1,4 +1,4 @@
-const {Model, DataTypes} = require('sequelize');
+const { Model, DataTypes} = require('sequelize');
 const sequelize = require('../db');
 
 class Music extends Model {} 

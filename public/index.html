@@ -46,14 +46,38 @@
       axios.post('/api/musics', music)
         .then(({ data: music }) => {
           console.log(music)
-          let addElem = document.createElement('div')
-          addElem.innerHTML = `${music.title}<br>${music.description}<br><a href = ${music.link}>${music.link}</a><hr>`
-          document.getElementById('musicStorage').append(addElem)
+          // let addElem = document.createElement('div')
+          // addElem.innerHTML = `${music.title}<br>${music.description}<br><a href = ${music.link}>${music.link}</a><hr>`
+          // document.getElementById('musicStorage').append(addElem)
         })
 
         .catch(err => console.error(err))
 
     })
+
+  function getSong() {
+    axios.get('/api/musics')
+      .then(({ data: musics }) => {
+        console.log(musics)
+        musics.forEach(item => {
+          let itemElem = document.createElement('p')
+          itemElem.innerHTML = `
+        Title: ${item.title}
+        <br>
+        Description: ${item.description}
+        <br>
+        <a href = ${item.link}>${item.link}</a>
+        <br>
+        <br>
+        <button class="like">Like</button>
+        <hr>
+        `
+          document.getElementById('musicStorage').append(itemElem)
+        });
+      })
+      .catch(err => console.error(err))
+  }
+  getSong();
   </script>
 </body>
 </html>

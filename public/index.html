@@ -56,6 +56,7 @@
     })
 
   function getSong() {
+    document.getElementById('musicStorage').innerHTML = ''
     axios.get('/api/musics')
       .then(({ data: musics }) => {
         console.log(musics)
@@ -70,7 +71,7 @@
         <br>
         <br>
         <button class="like">Like</button>
-        <button class ="delete">Delete</button>
+        <button class="delete" data-index =${item.id}>Delete </button>
         <hr>
         `
           document.getElementById('musicStorage').append(itemElem)
@@ -78,6 +79,27 @@
       })
       .catch(err => console.error(err))
   }
+
+
+  // document.getElementsByClassName('delete').addEventListener('click', event => {
+  //   axios.delete('/api/musics')
+  //   .then(({data : body.params.id}) => {
+  //     musics.ForEach(item => {
+  //       musics.splice(item, 1)
+  //     });
+  //   })
+  // })
+    document.addEventListener('click', event => {
+        if (event.target.className === 'delete') {
+          const index = parseInt(event.target.dataset.index)
+          axios.delete(`/api/musics/${index}`)
+            .then(() => {
+              getSong()
+              console.log(`song deleted`)
+            })
+        }
+      })
+
   getSong();
   </script>
 </body>
